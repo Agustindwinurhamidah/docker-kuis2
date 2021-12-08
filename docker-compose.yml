@@ -1,0 +1,39 @@
+version: '3'
+services:
+
+  #App
+  wisata:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: agustindwinurhamidah/wisata
+    container_name: wisata
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: wisata
+      SERVICE_TAGS: wisata
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - wisata
+  #Nginx Service
+  nginx-wisata:
+    image: nginx:alpine
+    container_name: nginx-wisata
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "80:80"
+    volumes:
+      - ./:/var/www/html
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+    networks:
+      - wisata
+
+#Docker Networks
+networks:
+  wisata:
+    driver: bridge
+
