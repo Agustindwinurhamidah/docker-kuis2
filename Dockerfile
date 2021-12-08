@@ -31,7 +31,7 @@ RUN apk update && apk add --no-cache \
 # Add and Enable PHP-PDO Extenstions
 RUN docker-php-ext-install pdo pdo_mysql
 RUN docker-php-ext-enable pdo_mysql
-
+RUN docker-php-ext-install mysqli
 # Install PHP Composer
 #RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
